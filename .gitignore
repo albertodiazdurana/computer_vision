@@ -1,0 +1,54 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TensorFlow/Keras
+*.h5
+*.keras
+*.pb
+saved_model/
+
+# Large model files (uncomment if needed)
+# models/*.h5
+# models/*.keras
+
+# Data files (uncomment if large)
+# data/raw/
+# data/processed/
+# *.csv
+# *.pkl
+
+# Logs
+logs/
+*.log
+tensorboard_logs/
+
+# Environment variables
+.env
+.env.local
+
+# Distribution
+dist/
+build/
+*.egg-info/
