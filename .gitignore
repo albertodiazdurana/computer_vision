@@ -29,15 +29,9 @@ Thumbs.db
 *.pb
 saved_model/
 
-# Large model files (uncomment if needed)
-# models/*.h5
-# models/*.keras
-
-# Data files (uncomment if large)
-# data/raw/
-# data/processed/
-# *.csv
-# *.pkl
+# Large model files
+models/
+outputs/
 
 # Logs
 logs/

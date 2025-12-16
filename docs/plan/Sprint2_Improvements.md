@@ -2,6 +2,21 @@
 
 **Purpose:** Document methodological improvements identified during Sprint 1 for implementation in Sprint 2 (extracurricular exercise).
 
+**Sprint 2 Primary Objective:** Production-ready workflow
+
+---
+
+## Production Readiness Goals
+
+- [ ] Modular code structure (separate .py files for data, model, training, evaluation)
+- [ ] Configuration management (YAML/JSON config files instead of hardcoded values)
+- [ ] Reproducibility (seed management, environment pinning)
+- [ ] Logging framework (replace print statements with proper logging)
+- [ ] Unit tests for critical functions
+- [ ] CI/CD pipeline considerations
+- [ ] Model versioning and artifact management
+- [ ] Documentation (docstrings, README, API docs)
+
 ---
 
 ## Day 1 Critical Assessment
@@ -51,13 +66,87 @@
 
 ## Day 2 Critical Assessment
 
-*(To be added after Day 2)*
+### Training Strategy
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Frozen transfer failed | Assumed ImageNet features transfer | Validate transfer assumption before committing; consider from-scratch training |
+| Single fine-tuning config | Unfroze conv5 only | Try unfreezing more layers (conv4+conv5), or progressive unfreezing |
+| High validation variance | 30-50% oscillation | Add regularization (more dropout, weight decay), or use larger batch with accumulation |
+
+### Learning Rate Strategy
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Fixed initial LR | Started at 1e-4 | Use learning rate finder to determine optimal starting LR |
+| Aggressive reduction | factor=0.5, patience=3 | Consider cosine annealing or warmup + decay schedule |
+| No differential LR | Same LR for all layers | Lower LR for early layers, higher for classifier head |
+
+### Class Imbalance in Performance
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Poor cat/bird performance | No class-specific handling | Analyze failure cases; consider class-weighted loss |
+| Confusion pairs | Cat↔Dog, Bird↔Deer | Add hard negative mining or focal loss |
+| No per-class analysis | Single accuracy metric | Track per-class metrics during training |
+
+### Target Accuracy Gap
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| 65% target not met | Achieved 48.6% | Revise target based on constraints OR use full dataset + appropriate architecture |
+| Upscaling artifacts | 32→224 bilinear interpolation | Use architecture designed for 32x32 (ResNet20-CIFAR, WideResNet) |
+| Limited training data | 8K samples | Use full 50K CIFAR-10 training set |
+
+### Key Learnings
+
+1. **Frozen transfer learning does not work for CIFAR-10** - ImageNet features are too high-level for 32x32 images
+2. **Fine-tuning is essential** - 5x improvement (10% → 50%) after unfreezing conv5
+3. **Architecture matters more than tricks** - ResNet50 is fundamentally mismatched for this task
+4. **Small dataset = high variance** - Need more data or stronger regularization
 
 ---
 
 ## Day 3 Critical Assessment
 
-*(To be added after Day 3)*
+### Grad-CAM Implementation Challenges
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Keras 3.x nested models | Custom `make_gradcam_heatmap_v3()` with sublayer access | Use tf-keras-vis or captum library for standardized implementation |
+| Coarse heatmap (7x7) | Upscale to 32x32 for visualization | Use earlier conv layers for finer resolution, or guided backprop |
+| Single-class focus | Only visualize predicted class | Compare heatmaps for predicted vs true class on misclassifications |
+
+### Interpretability Depth
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Limited confusion analysis | Visualized 2 samples per confused pair | Aggregate analysis: mean heatmap per class, attention statistics |
+| No quantitative metrics | Visual inspection only | Add localization accuracy, IoU with object regions |
+| Static analysis | Post-training only | Track attention evolution during training |
+
+### Notebook Workflow
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Path resolution fragile | Fallback chain with hardcoded path | Use `__file__` or config-based paths; package structure |
+| State restoration manual | Separate cell for loading saved state | Automatic checkpoint detection and loading |
+| No version control for experiments | Single notebook | MLflow/Weights&Biases for experiment tracking |
+
+### Code Quality
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Functions in notebook | All code in cells | Extract to `src/` modules (gradcam.py, visualization.py) |
+| No error handling | Assumes success | Add try/except, validation, informative error messages |
+| Magic numbers | Hardcoded batch size, epochs | Config file (YAML) for all hyperparameters |
+
+### Key Learnings
+
+1. **Keras 3.x breaking changes** - Nested model layer access requires `base_model.get_layer()` not `model.get_layer()`
+2. **State management critical** - Saving model + predictions + history enables session recovery
+3. **Path handling varies by execution context** - Notebook cwd differs from script execution
+4. **Grad-CAM confirms model behavior** - Vehicle classes have cleaner attention than animal classes
 
 ---
 
