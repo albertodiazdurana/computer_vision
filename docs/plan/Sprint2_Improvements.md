@@ -152,7 +152,44 @@
 
 ## Day 4 Critical Assessment
 
-*(To be added after Day 4)*
+### Training Reproducibility
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Result variance between runs | 44-49% test accuracy depending on run | Fix all random seeds (numpy, tf, python), use deterministic operations |
+| No run logging | Manual observation of metrics | Log all hyperparameters and metrics per run to file/database |
+| Training not resumable | Restart from scratch if interrupted | Implement proper checkpointing with optimizer state |
+
+### Skip Logic Implementation
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Long re-run times (~80 min) | Added file-existence checks for saved models | Use proper experiment tracking (MLflow) with automatic caching |
+| History object mocking | Created `HistoryMock` class for compatibility | Serialize full Keras callback objects or use standardized format |
+| Scattered save logic | Save in training cell, restore in separate cell | Centralized checkpoint manager class |
+
+### Git/Version Control
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Large files blocked push | 117 MB evaluation_state.npz exceeded GitHub limit | Use Git LFS from project start, or DVC for data versioning |
+| Models in repo | Added models/ to .gitignore after issue | Plan artifact storage strategy upfront (cloud storage, LFS) |
+| No experiment tracking | Manual checkpoint files | MLflow/W&B for automatic artifact versioning |
+
+### Presentation Readiness
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Manual demo preparation | Created PRESENTATION_GUIDE.md with talking points | Automated demo script with checkpoints at each section |
+| Emergency recovery manual | Documented restore steps | Single-command recovery script |
+| No backup strategy | Manual file copy to external folder | Automated backup to cloud storage |
+
+### Key Learnings
+
+1. **Reproducibility requires explicit seeding** - Same code can produce 44-49% accuracy on different runs
+2. **Large file management needs upfront planning** - GitHub's 100MB limit caught us after committing
+3. **Skip logic improves iteration speed** - Re-running notebook takes seconds instead of 80 min
+4. **Presentation preparation is project work** - Guide and recovery procedures are deliverables
 
 ---
 
