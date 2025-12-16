@@ -34,7 +34,7 @@
 ## Notebook Development Protocol
 
 When generating notebook cells:
-1. Generate ONE cell at a time
+1. Generate ONE cell at a time; unless the first cell contains markdown only, then generate up to TWO cells
 2. Wait for user approval OR execution output before generating next cell
 3. Never generate multiple cells without explicit request
 4. Adapt each cell based on actual output from previous cells
