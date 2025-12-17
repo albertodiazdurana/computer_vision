@@ -200,6 +200,14 @@
 | Version drift between notebook and docs | Manual verification after changes | CI/CD pipeline to validate consistency |
 | No run history | Only latest results documented | Append results to run log with timestamps |
 
+### Keras Version Compatibility
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Model portability across Keras versions | Saved as `.keras` format (version-specific) | Use `.weights.h5` format or SavedModel for portability |
+| Colab compatibility | Models saved locally failed to load in Colab | Add try/except in `load_or_train()` to fall back to training |
+| Stack layer serialization | Keras 3.x `Stack` layer not portable | Avoid custom layers in model architecture, or use `tf.saved_model` |
+
 ### Key Learnings
 
 1. **Reproducibility requires explicit seeding** - Same code can produce 44-49% accuracy on different runs
@@ -209,6 +217,7 @@
 5. **DRY principle applies to notebooks** - Refactored 3 training cells to use shared `load_or_train()` function
 6. **Cell numbering aids collaboration** - `# Cell N` comments enable precise references in discussions
 7. **Documentation cascade is costly** - Metric changes required updates to notebook, PRESENTATION_GUIDE.md, PRESENTATION_QA.md
+8. **Keras model serialization is version-sensitive** - `.keras` format failed to load in Colab due to `Stack` layer incompatibility between Keras versions
 
 ---
 

@@ -108,6 +108,9 @@
 
 ## Potential Questions & Answers
 
+**Why did I select reaching 65% as target?**
+A: Based on prior literature and benchmarks for CIFAR-10 with transfer learning. 
+
 **Q: Why didn't you reach 65%?**
 A: Architecture mismatch. ResNet50 expects 224x224 input; upscaling 32x32 introduces artifacts. A CIFAR-specific architecture (ResNet-20) would perform better.
 
@@ -125,19 +128,6 @@ A: Gradients of the predicted class score with respect to the last convolutional
 
 ---
 
-## Emergency Recovery
-
-If kernel crashes during demo:
-
-1. Run cells 1-4 (setup, paths, data load, split)
-2. Run cell 5 (normalize)
-3. Skip to Section 9.1 and run the restore cell
-4. Continue from Grad-CAM visualization
-
-This skips training and loads saved state.
-
----
-
 ## Colab Compatibility Notes
 
 The notebook auto-detects environment:
@@ -146,5 +136,8 @@ The notebook auto-detects environment:
 
 For Colab demo:
 1. Upload notebook to Colab
-2. Upload `models/` folder if showing restore functionality
+2. **Do NOT upload `models/` folder** - Keras version incompatibility prevents loading locally-saved models
 3. Figures will be generated fresh (no need to upload)
+4. Training will run from scratch (~77 min) - plan accordingly
+
+**Known Issue:** Models saved with local Keras 3.x (TF 2.20) fail to load in Colab due to `Stack` layer serialization differences.
