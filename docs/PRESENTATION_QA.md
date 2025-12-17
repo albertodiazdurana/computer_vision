@@ -202,18 +202,18 @@ A: 15.5M trainable (up from 527K). The conv5 block contains most of ResNet50's h
 A: Time and memory constraints. Unfreezing more layers increases training time and risk of overfitting on small data. Conv5 contains the most task-specific features.
 
 **Q5: What was the best validation accuracy achieved?**
-A: 45.8% at epoch 17 (restored by EarlyStopping).
+A: 49.0% at epoch 25 (restored by EarlyStopping).
 
-**Q6: Why did training stop at epoch 24 instead of 30?**
-A: EarlyStopping triggered with patience=7. Validation loss stopped improving for 7 consecutive epochs.
+**Q6: Why did training run all 30 epochs?**
+A: EarlyStopping didn't trigger because validation accuracy kept improving. Best weights at epoch 25.
 
 ### Context Questions
 
 **Q7: How long did Phase 2 training take?**
-A: ~39 minutes for 24 epochs.
+A: ~49 minutes for 30 epochs.
 
 **Q8: What was the improvement from Phase 1 to Phase 2?**
-A: 4.5x improvement (10% → 46% validation accuracy).
+A: 4.7x improvement (10.5% → 49% validation accuracy).
 
 **Q9: Why didn't we reach the 65% target?**
 A: Architecture mismatch (ResNet50 not designed for 32x32 images) and small training set (8K vs 50K available).
@@ -225,10 +225,10 @@ A: Architecture mismatch (ResNet50 not designed for 32x32 images) and small trai
 ### Technical Questions
 
 **Q1: What is the test accuracy and how does it compare to validation?**
-A: Test: 44.4%, Validation: 45.8%. The small gap (1.4%) indicates consistent generalization.
+A: Test: 48.9%, Validation: 49.0%. The small gap (0.1%) indicates consistent generalization.
 
 **Q2: What are the best and worst performing classes?**
-A: Best: Automobile (72% precision), Ship (68% precision). Worst: Cat (18% F1), Bird (24% F1).
+A: Best: Ship (65% precision), Automobile (62% precision). Worst: Cat (21% F1), Bird (26% F1).
 
 **Q3: Why is precision used for some classes and F1 for others?**
 A: They tell different stories. High precision = few false positives. F1 balances precision and recall. Cat/Bird have low F1 because both precision AND recall are poor.
@@ -242,7 +242,7 @@ A: True labels on y-axis, predicted labels on x-axis. Each cell (i,j) shows how 
 ### Context Questions
 
 **Q6: What is the gap to target?**
-A: 20.6 percentage points (65% target - 44.4% achieved).
+A: 16.1 percentage points (65% target - 48.9% achieved).
 
 **Q7: Why is Cat/Dog confusion expected?**
 A: At 32x32 resolution, both have similar body shapes, fur textures, and color patterns. Discriminative features (face shape, ears) are too small to resolve.
@@ -309,7 +309,7 @@ A: Data augmentation randomness, dropout patterns, batch ordering, and weight in
 ### Context Questions
 
 **Q6: How long did the complete notebook take to run?**
-A: ~54 minutes (15 min Phase 1 + 39 min Phase 2) for fresh training. With skip logic, subsequent runs complete in seconds.
+A: ~77 minutes (28 min Phase 1 + 49 min Phase 2) for fresh training. With skip logic, subsequent runs complete in seconds.
 
 **Q7: What artifacts were produced?**
 A: 8 figures (PNG), 6+ model files (Keras, pickle, numpy), checkpoints and documentation.

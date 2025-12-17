@@ -60,17 +60,17 @@
 **Key talking points:**
 - Unfreeze conv5 block: now 15.5M trainable params
 - Lower LR (1e-4) to preserve pretrained weights
-- 4.5x improvement: 10% -> 46% accuracy
+- 4.7x improvement: 10% -> 49% accuracy
 - Still below 65% target (architecture mismatch)
 
 **Show:** Phase 2 training curves (learning happening!)
 
 ### Section 8: Evaluation (2 min)
 **Key talking points:**
-- Test accuracy 44.4% (close to validation 45.8%)
+- Test accuracy 48.9% (close to validation 49.0%)
 - Consistent generalization
-- Best classes: Automobile (72% precision), Ship (68% precision)
-- Worst classes: Cat (18% F1), Bird (24% F1)
+- Best classes: Ship (65% precision), Automobile (62% precision)
+- Worst classes: Cat (21% F1), Bird (26% F1)
 
 **Show:** Confusion matrix heatmap
 
@@ -96,12 +96,12 @@
 
 | Metric | Value |
 |--------|-------|
-| Test Accuracy | 44.4% |
+| Test Accuracy | 48.9% |
 | Target | 65% |
-| Gap | 20.6 pp |
-| Phase 1 Accuracy | 10.3% (random) |
-| Phase 2 Improvement | 4.5x |
-| Training Time | 54 min total |
+| Gap | 16.1 pp |
+| Phase 1 Accuracy | 10.5% (random) |
+| Phase 2 Improvement | 4.7x |
+| Training Time | 77 min total |
 | Model Parameters | 24.1M |
 
 ---

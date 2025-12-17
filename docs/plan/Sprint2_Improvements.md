@@ -184,12 +184,31 @@
 | Emergency recovery manual | Documented restore steps | Single-command recovery script |
 | No backup strategy | Manual file copy to external folder | Automated backup to cloud storage |
 
+### Code Quality
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Duplicated skip logic in 3 cells | Copy-paste with minor modifications | Created reusable `load_or_train()` helper function (DRY principle) |
+| No cell referencing convention | VS Code auto-generated IDs (e.g., `fd3a1104`) | Added `# Cell N` comments to all 29 code cells |
+| Hardcoded metrics in multiple files | Manual updates to notebook, guide, Q&A after each run | Centralize metrics in config file or generate docs from notebook output |
+
+### Documentation Maintenance
+
+| Issue | Sprint 1 Approach | Sprint 2 Improvement |
+|-------|-------------------|----------------------|
+| Metrics scattered across files | Update 3+ files manually after each training run | Single source of truth (metrics.json) with auto-generated docs |
+| Version drift between notebook and docs | Manual verification after changes | CI/CD pipeline to validate consistency |
+| No run history | Only latest results documented | Append results to run log with timestamps |
+
 ### Key Learnings
 
 1. **Reproducibility requires explicit seeding** - Same code can produce 44-49% accuracy on different runs
 2. **Large file management needs upfront planning** - GitHub's 100MB limit caught us after committing
 3. **Skip logic improves iteration speed** - Re-running notebook takes seconds instead of 80 min
 4. **Presentation preparation is project work** - Guide and recovery procedures are deliverables
+5. **DRY principle applies to notebooks** - Refactored 3 training cells to use shared `load_or_train()` function
+6. **Cell numbering aids collaboration** - `# Cell N` comments enable precise references in discussions
+7. **Documentation cascade is costly** - Metric changes required updates to notebook, PRESENTATION_GUIDE.md, PRESENTATION_QA.md
 
 ---
 
