@@ -38,6 +38,7 @@ When generating notebook cells:
 2. Wait for user approval OR execution output before generating next cell
 3. Never generate multiple cells without explicit request
 4. Adapt each cell based on actual output from previous cells
+5. Number each cell with a comment (e.g., `# Cell 1`, `# Cell 2`) for easy reference in discussions
 
 **Interaction pattern:**
 - User describes goal → Claude proposes cell → User approves/runs → Claude sees output → Claude generates next cell
