@@ -234,7 +234,7 @@ A: Best: Ship (65% precision), Automobile (62% precision). Worst: Cat (21% F1), 
 A: They tell different stories. High precision = few false positives. F1 balances precision and recall. Cat/Bird have low F1 because both precision AND recall are poor.
 
 **Q4: What are the main confusion pairs?**
-A: Cat↔Dog (similar body shapes), Bird↔Deer (similar silhouettes in natural settings), Truck↔Automobile (both vehicles).
+A: Ship→Airplane (237, similar shapes), Deer→Horse (232, similar silhouettes), Cat→Frog (218), Bird→Deer (208), Automobile↔Truck (both vehicles).
 
 **Q5: How is the confusion matrix computed?**
 A: True labels on y-axis, predicted labels on x-axis. Each cell (i,j) shows how many samples of class i were predicted as class j.
@@ -244,8 +244,8 @@ A: True labels on y-axis, predicted labels on x-axis. Each cell (i,j) shows how 
 **Q6: What is the gap to target?**
 A: 16.1 percentage points (65% target - 48.9% achieved).
 
-**Q7: Why is Cat/Dog confusion expected?**
-A: At 32x32 resolution, both have similar body shapes, fur textures, and color patterns. Discriminative features (face shape, ears) are too small to resolve.
+**Q7: Why are certain confusion pairs expected?**
+A: At 32x32 resolution, classes with similar silhouettes (ship/airplane, deer/horse) or textures get confused. Discriminative features are too small to resolve after upscaling.
 
 **Q8: What would improve per-class performance?**
 A: Class-weighted loss, hard negative mining, more training data, or a CIFAR-specific architecture.

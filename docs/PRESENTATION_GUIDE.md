@@ -78,7 +78,7 @@
 **Key talking points:**
 - Grad-CAM shows WHERE model looks to make decisions
 - Correct predictions: focuses on object body
-- Confused pairs: Cat/Dog similar shapes, Bird/Deer similar silhouettes
+- Top confusions: Ship/Airplane, Deer/Horse, Cat/Frog (see matrix)
 - Model is not a black box - we can explain its behavior
 
 **Show:** Grad-CAM samples, confusion analysis
@@ -117,8 +117,8 @@ A: Course specification. Full 50K dataset would likely improve results.
 **Q: What would you do differently?**
 A: Use EfficientNetB0 or ResNet-20 designed for smaller images, or train from scratch on CIFAR-10.
 
-**Q: Why is Cat/Dog confusion so high?**
-A: Similar body shapes at 32x32 resolution. The model relies on texture/color which overlaps between these classes.
+**Q: Why are Ship/Airplane and Deer/Horse confused?**
+A: Similar elongated shapes at low resolution. After upscaling 32x32→224x224, fine discriminative details are lost.
 
 **Q: What is Grad-CAM actually computing?**
 A: Gradients of the predicted class score with respect to the last convolutional layer, showing which regions influenced the prediction most.
