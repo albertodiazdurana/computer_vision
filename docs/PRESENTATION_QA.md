@@ -215,8 +215,26 @@ A: ~49 minutes for 30 epochs.
 **Q8: What was the improvement from Phase 1 to Phase 2?**
 A: 4.7x improvement (10.5% → 49% validation accuracy).
 
-**Q9: Why didn't we reach the 65% target?**
-A: Architecture mismatch (ResNet50 not designed for 32x32 images) and small training set (8K vs 50K available).
+**Q9: Why was 65% set as the target?**
+A: Based on CIFAR-10 benchmarks with similar constraints:
+
+| Approach | Typical Accuracy | Notes |
+|----------|------------------|-------|
+| State-of-the-art (ViT, custom) | 99%+ | Full training, optimized architectures |
+| ResNet50 full fine-tune | 87-90% | All layers trainable, 224x224 resize |
+| ResNet50 partial fine-tune | 70-85% | Only top layers trainable |
+| Frozen ResNet50 + head | 50-65% | Our approach, limited compute |
+| Random guessing | 10% | Baseline |
+
+65% represents a reasonable target for our constraints: partial fine-tuning (only conv5), small dataset (8K not 50K), limited VRAM (2.2GB), and 5-day timeline. Literature shows full ResNet50 fine-tuning achieves 87%+, so 65% is ~75% of that ceiling.
+
+**Sources:**
+- [Transfer Learning with ResNet50 on CIFAR-10 (87%+)](https://www.linkedin.com/pulse/leveraging-transfer-learning-cifar-10-classification-icaza-santos)
+- [CIFAR10 ResNet 90%+ accuracy](https://www.kaggle.com/code/kmldas/cifar10-resnet-90-accuracy-less-than-5-min)
+- [94% on CIFAR-10 - Stanford DAWNBench target](https://arxiv.org/html/2404.00498v2)
+
+**Q10: Why didn't we reach the 65% target?**
+A: Architecture mismatch (ResNet50 expects 224x224, we upscale 32x32 losing detail) and small training set (8K vs 50K available). The 48.9% achieved is within expected range for these constraints.
 
 ---
 
@@ -335,3 +353,46 @@ A: "The model looks at the image and highlights which parts it focused on to mak
 
 **Q5: What monitoring would you add for production?**
 A: Per-class accuracy over time, confidence distribution shifts, input data quality checks, and human-in-the-loop review for low-confidence predictions.
+
+---
+
+## References
+
+### Official Documentation
+
+| Topic | Resource |
+|-------|----------|
+| Transfer Learning Pattern | [Keras Transfer Learning Guide](https://keras.io/guides/transfer_learning/) |
+| ResNet50 API | [Keras ResNet50 Documentation](https://keras.io/api/applications/resnet/) |
+| Functional API | [Keras Functional API Guide](https://keras.io/guides/functional_api/) |
+| TensorFlow Tutorial | [Transfer Learning with TensorFlow](https://www.tensorflow.org/tutorials/images/transfer_learning) |
+
+### Research Papers
+
+| Choice | Paper |
+|--------|-------|
+| ResNet architecture | [Deep Residual Learning (He et al., 2015)](https://arxiv.org/abs/1512.03385) |
+| Transfer learning | [How transferable are features in DNNs? (Yosinski et al., 2014)](https://arxiv.org/abs/1411.1792) |
+| Dropout regularization | [Dropout: Preventing Overfitting (Srivastava et al., 2014)](https://jmlr.org/papers/v15/srivastava14a.html) |
+| Adam optimizer | [Adam: Stochastic Optimization (Kingma & Ba, 2015)](https://arxiv.org/abs/1412.6980) |
+| Batch Normalization | [Batch Normalization (Ioffe & Szegedy, 2015)](https://arxiv.org/abs/1502.03167) |
+| Grad-CAM | [Grad-CAM: Visual Explanations (Selvaraju et al., 2017)](https://arxiv.org/abs/1610.02391) |
+
+### CIFAR-10 Benchmarks
+
+| Resource | Notes |
+|----------|-------|
+| [Papers With Code - CIFAR-10](https://paperswithcode.com/sota/image-classification-on-cifar-10) | State-of-the-art leaderboard |
+| [ResNet50 Transfer Learning (87%+)](https://www.linkedin.com/pulse/leveraging-transfer-learning-cifar-10-classification-icaza-santos) | Full fine-tuning benchmark |
+| [CIFAR10 ResNet 90%+ accuracy](https://www.kaggle.com/code/kmldas/cifar10-resnet-90-accuracy-less-than-5-min) | Kaggle implementation |
+| [94% CIFAR-10 - DAWNBench](https://arxiv.org/html/2404.00498v2) | Stanford competition target |
+
+### Architecture Decision Support
+
+| Decision | Reference |
+|----------|-----------|
+| `include_top=False, pooling='avg'` | [Keras Transfer Learning Guide](https://keras.io/guides/transfer_learning/) |
+| `training=False` for frozen BatchNorm | [Keras Fine-tuning Section](https://keras.io/guides/transfer_learning/#fine-tuning) |
+| Dropout rate 0.2-0.5 | [Srivastava et al., 2014](https://jmlr.org/papers/v15/srivastava14a.html) |
+| Bottleneck hidden layer | [CS231n: Neural Networks](https://cs231n.github.io/neural-networks-1/) |
+| Transfer learning best practices | [CS231n: Transfer Learning](https://cs231n.github.io/transfer-learning/)

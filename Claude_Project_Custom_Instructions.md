@@ -1,4 +1,4 @@
-# Project: CIFAR-10 Image Classification
+# Project: CIFAR-10 Image Classification 
 Domain: Computer Vision
 
 ## Framework Documents

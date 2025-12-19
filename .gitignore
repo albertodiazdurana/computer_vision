@@ -1,3 +1,10 @@
+.gitignore
+.claude
+Claude_Project_Custom_Instructions.md
+
+# Folder Projct Knowledge
+.Project_Knowledge/
+
 # Virtual environment
 .venv/
 venv/
@@ -46,3 +53,4 @@ tensorboard_logs/
 dist/
 build/
 *.egg-info/
+
