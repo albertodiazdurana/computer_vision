@@ -1,0 +1,44 @@
+# CIFAR-10 Classification Configuration
+# Sprint 2: Production-Ready MLOps
+
+data:
+  train_size: 8000
+  val_size: 2000
+  batch_size: 32
+  random_seed: 42
+
+model:
+  base_model: "ResNet50"
+  input_shape: [32, 32, 3]
+  num_classes: 10
+  dropout_rate: 0.3
+  dense_units: 256
+
+training:
+  phase1:
+    epochs: 20
+    learning_rate: 0.001
+    freeze_base: true
+  phase2:
+    epochs: 30
+    learning_rate: 0.0001
+    unfreeze_from: "conv5_block1"
+
+callbacks:
+  early_stopping:
+    patience: 5
+    min_delta: 0.001
+    restore_best_weights: true
+  reduce_lr:
+    factor: 0.5
+    patience: 3
+    min_lr: 0.00001
+
+mlflow:
+  experiment_name: "cifar10-classification"
+  tracking_uri: "mlruns"
+
+paths:
+  models: "models"
+  outputs: "outputs"
+  figures: "outputs/figures"
