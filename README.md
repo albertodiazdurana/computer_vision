@@ -107,19 +107,14 @@ Grad-CAM visualizations show which image regions the model focuses on:
 
 ```
 computer_vision/
+├── README.md
 ├── notebooks/
-│   └── cifar10_classification.ipynb    # Main notebook
-├── outputs/
-│   └── figures/                        # Generated visualizations
-├── models/                             # Saved models and history
-├── docs/
-│   ├── PRESENTATION_GUIDE.md           # Presentation walkthrough
-│   ├── PRESENTATION_QA.md              # Q&A preparation
-│   └── plan/
-│       └── Sprint2_Improvements.md     # Production improvements
-├── data/                               # Dataset (auto-downloaded)
-└── README.md
+│   └── cifar10_classification.ipynb    # Main notebook (self-contained)
+└── outputs/
+    └── figures/                        # Generated visualizations
 ```
+
+**Note:** This is a minimalistic repository. The notebook is self-contained and will auto-download the CIFAR-10 dataset and create necessary directories on first run.
 
 ## Quick Start
 
@@ -150,11 +145,21 @@ jupyter notebook notebooks/cifar10_classification.ipynb
 
 ## Requirements
 
-- Python 3.10+
-- TensorFlow 2.20.0+
-- scikit-learn
-- matplotlib, seaborn
-- GPU recommended (tested on NVIDIA Quadro T1000, 2.2GB VRAM)
+```
+tensorflow>=2.10.0
+scikit-learn
+matplotlib
+seaborn
+numpy
+```
+
+Install with:
+```bash
+pip install tensorflow scikit-learn matplotlib seaborn numpy
+```
+
+- Python 3.10+ recommended
+- GPU optional but recommended (~77 min training with GPU, slower on CPU)
 
 ## Known Issues
 
@@ -174,8 +179,6 @@ Production-ready improvements planned:
 - [ ] Experiment tracking (MLflow/W&B)
 - [ ] Model versioning and portable serialization
 - [ ] CI/CD pipeline for documentation consistency
-
-See [Sprint2_Improvements.md](docs/plan/Sprint2_Improvements.md) for details.
 
 ## Author
 
