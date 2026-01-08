@@ -3,22 +3,11 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cifar10-classification"
+name = "cv_toolkit"
 version = "0.2.0"
-description = "CIFAR-10 classifier with ResNet50 transfer learning"
-readme = "README.md"
+description = "Computer vision toolkit: classification, detection, interpretability and annotation"
+
 requires-python = ">=3.10"
-authors = [
-    {name = "Alberto Diaz Durana", email = "albertodiazdurana@gmail.com"}
-]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Education",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-]
 dependencies = [
     "tensorflow>=2.10.0",
     "mlflow>=2.0.0",
@@ -29,20 +18,5 @@ dependencies = [
     "pyyaml",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest", "pytest-cov", "jupyter", "ipykernel"]
-app = ["streamlit"]
-
-[project.scripts]
-cifar10-train = "cifar10.scripts.train:main"
-
-[project.urls]
-Repository = "https://github.com/albertodiazdurana/computer_vision"
-
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-addopts = "-v --tb=short"
