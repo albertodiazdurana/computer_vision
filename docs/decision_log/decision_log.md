@@ -53,6 +53,23 @@ Each decision follows this format:
 **Alternatives Considered:** Batch size 64 (likely OOM), batch size 8 (too slow)
 **Impact:** Training time and memory usage
 
+### DEC-004: Steel Defect Segmentation - Binary vs Multi-class
+**Date:** 2026-01-09
+**Context:** Severstal dataset downloaded with only 605 images (subset), highly imbalanced classes
+**Decision:** Use binary segmentation (defect vs background) instead of 4-class segmentation
+**Rationale:**
+- Only 605 images available (expected 12,568)
+- Class imbalance: Class 3 has 5,150 annotations, Class 2 only 247
+- Binary classification provides stronger learning signal with limited data
+- Simpler model less prone to overfitting on small dataset
+**Alternatives Considered:**
+- 4-class segmentation (rejected: too little data per class)
+- Download full dataset (rejected: time constraint for interview prep)
+**Impact:**
+- Adjusted model: lighter U-Net, more augmentation
+- Target mIoU: 0.4-0.5 (realistic for 605 images)
+- Training split: 80% train (~480), 20% val (~125)
+
 ---
 
 ## Pending Decisions
