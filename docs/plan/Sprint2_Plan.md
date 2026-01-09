@@ -34,16 +34,21 @@
 
 ---
 
-## Day 4: Image Segmentation Notebook
+## Day 4: Steel Defect Segmentation Notebook
 
-**Why**: Shows pixel-level analysis capability
+**Why**: Shows pixel-level defect localization - directly relevant to manufacturing quality inspection
+
+**Dataset**: Severstal Steel Defect Detection (Kaggle)
+- 12,568 train images of steel sheets
+- 4 defect classes with pixel-level segmentation masks
+- Real manufacturing data from steel production
 
 ### Tasks:
-- [ ] Create `notebooks/03_image_segmentation.ipynb`
-- [ ] Use Oxford-IIIT Pet dataset (tensorflow_datasets)
-- [ ] Implement U-Net architecture
+- [ ] Download Severstal Steel Defect dataset (Kaggle)
+- [ ] Create `notebooks/03_steel_defect_segmentation.ipynb`
+- [ ] Implement U-Net architecture for multi-class segmentation
 - [ ] Evaluate with IoU and Dice metrics
-- [ ] Visualize predictions vs ground truth
+- [ ] Visualize predictions vs ground truth masks
 
 ---
 
@@ -84,7 +89,7 @@
 | File | Purpose |
 |------|---------|
 | `notebooks/02_defect_detection.ipynb` | Anomaly detection |
-| `notebooks/03_image_segmentation.ipynb` | U-Net segmentation |
+| `notebooks/03_steel_defect_segmentation.ipynb` | Steel defect segmentation |
 | `app/manufacturing_dashboard.py` | Streamlit dashboard |
 | `requirements.txt` | Dependencies |
 | `README.md` | Updated with manufacturing focus |
