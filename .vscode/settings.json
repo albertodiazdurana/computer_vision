@@ -1,6 +1,5 @@
 // Minimal VS Code Settings
 // No formatting/linting configured
-
 {
     "python.terminal.activateEnvironment": true,
     "python.defaultInterpreterPath": ".venv/bin/python",
@@ -12,5 +11,10 @@
     "datawrangler.enable": false,
     "editor.wordWrap": "on",
     "notebook.output.textLineLimit": 200,
-    "terminal.integrated.defaultProfile.windows": "PowerShell"
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

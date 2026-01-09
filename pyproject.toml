@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cv_toolkit"
+version = "0.2.0"
+description = "Computer vision toolkit: classification, detection, interpretability and annotation"
+
+requires-python = ">=3.10"
+dependencies = [
+    "tensorflow>=2.10.0",
+    "mlflow>=2.0.0",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "numpy",
+    "pyyaml",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
