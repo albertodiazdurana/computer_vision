@@ -20,17 +20,17 @@
 
 ---
 
-## Days 2-3: Defect Detection Notebook
+## Completed (Days 2-3): Defect Detection Notebook
 
 **Why**: Directly relevant to Deltia's quality inspection use case
 
 ### Tasks:
-- [ ] Download Casting Product Defects dataset (Kaggle)
-- [ ] Create `notebooks/02_defect_detection.ipynb`
-- [ ] Implement autoencoder-based anomaly detection
-- [ ] Train on "good" samples only
-- [ ] Evaluate with ROC-AUC, confusion matrix
-- [ ] Visualize reconstructions & error maps
+- [x] Download Casting Product Defects dataset (Kaggle)
+- [x] Create `notebooks/02_defect_detection.ipynb`
+- [x] Implement autoencoder-based anomaly detection
+- [x] Train on "good" samples only
+- [x] Evaluate with ROC-AUC (0.869), confusion matrix
+- [x] Visualize reconstructions & error maps
 
 ---
 
