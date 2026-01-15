@@ -57,6 +57,15 @@
 - **Decision:** Use BCE + Dice combined loss
 - **Rationale:** BCE provides stable gradients, Dice handles class imbalance
 
+### DEC-006: Cloud Deployment Size Adaptation
+- **Context:** Streamlit Community Cloud has repository size limits; full Severstal dataset is ~2GB (12,568 images)
+- **Decision:** Bundle 20 sample images (2.1MB) + trained model (5.7MB) = 7.8MB total app size
+- **Rationale:**
+  - Demonstrates full segmentation workflow within cloud deployment constraints
+  - App auto-detects sample vs full data at runtime (checks if `sample_data/` exists)
+  - Local development still uses full dataset for comprehensive testing
+  - Sample images selected from defect-containing subset to ensure meaningful demonstrations
+
 ---
 
 ## Technical Notes
