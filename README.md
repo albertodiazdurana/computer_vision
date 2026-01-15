@@ -1,6 +1,8 @@
-# Computer Vision for Manufacturing Analytics
+# Computer Vision Portfolio
 
-> Deep learning projects demonstrating computer vision techniques applicable to manufacturing quality control and process optimization.
+> Deep learning projects demonstrating computer vision techniques for manufacturing quality control and process optimization.
+
+**[Live Demo: Steel Defect Segmentation Dashboard](https://steel-defect-segmentation.streamlit.app/)**
 
 ## Projects
 
@@ -40,27 +42,34 @@ Anomaly detection using convolutional autoencoder trained only on "good" samples
 
 ---
 
-### 3. Image Segmentation (Coming Soon)
+### 3. Steel Defect Segmentation
 
-U-Net architecture for pixel-level analysis.
+U-Net semantic segmentation for pixel-level defect detection on steel surfaces.
 
-**Manufacturing relevance:** Component localization, damage assessment
+| Metric | Value |
+|--------|-------|
+| Dice Coefficient | 0.42 |
+| IoU | 0.28 |
+| Architecture | U-Net (487K params) |
+| Dataset | Severstal Steel (4,000 images) |
 
----
+**Manufacturing relevance:** Automated quality inspection, surface defect localization
 
-### 4. Manufacturing Dashboard (Coming Soon)
+![Segmentation Predictions](outputs/figures/steel_segmentation_predictions.png)
 
-Streamlit app for production analytics visualization.
+**Key insight:** Combined BCE + Dice loss enables stable training on severely imbalanced data (~3% defect pixels).
+
+**[Try the Interactive Dashboard](https://steel-defect-segmentation.streamlit.app/)**
 
 ---
 
 ## Skills Demonstrated
 
-- **Deep Learning:** CNN, Transfer Learning, Autoencoders, U-Net
-- **Python:** TensorFlow/Keras, scikit-learn, matplotlib
-- **MLOps:** MLflow experiment tracking, modular package design
-- **Data Analysis:** ROC curves, confusion matrices, statistical metrics
-- **Interpretability:** Grad-CAM, reconstruction error maps
+- **Deep Learning:** CNN, Transfer Learning, Autoencoders, U-Net, Semantic Segmentation
+- **Python:** TensorFlow/Keras, scikit-learn, matplotlib, Streamlit
+- **MLOps:** MLflow experiment tracking, modular package design, cloud deployment
+- **Data Analysis:** ROC curves, confusion matrices, Dice/IoU metrics
+- **Interpretability:** Grad-CAM, reconstruction error maps, mask overlays
 
 ---
 
@@ -68,6 +77,10 @@ Streamlit app for production analytics visualization.
 
 ```
 computer_vision/
+├── app/                     # Streamlit dashboard
+│   ├── steel_segmentation_dashboard.py
+│   ├── steel_unet.keras     # Trained model
+│   └── sample_data/         # Demo images
 ├── src/cv_toolkit/          # Modular Python package
 │   ├── config.py            # Configuration management
 │   ├── data.py              # Data loading
@@ -76,8 +89,9 @@ computer_vision/
 │   ├── evaluation.py        # Metrics and visualization
 │   └── gradcam.py           # Model interpretability
 ├── notebooks/
-│   ├── cifar10_classification.ipynb
-│   └── 02_defect_detection.ipynb
+│   ├── 01_cifar10_classification.ipynb
+│   ├── 02_defect_detection.ipynb
+│   └── 03_steel_defect_segmentation.ipynb
 ├── tests/                   # Unit tests (pytest)
 ├── config/                  # YAML configuration
 └── outputs/figures/         # Generated visualizations
@@ -110,10 +124,12 @@ jupyter notebook notebooks/
 ```
 tensorflow>=2.10.0
 mlflow>=2.0.0
+streamlit>=1.28.0
 scikit-learn
 matplotlib
 seaborn
 numpy
+pandas
 pyyaml
 ```
 
@@ -128,4 +144,4 @@ pyyaml
 
 ---
 
-*Last updated: 2026-01-09*
+*Last updated: 2026-01-15*
