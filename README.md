@@ -55,7 +55,7 @@ U-Net semantic segmentation for pixel-level defect detection on steel surfaces.
 
 **Manufacturing relevance:** Automated quality inspection, surface defect localization
 
-![Segmentation Predictions](outputs/figures/steel_segmentation_predictions.png)
+![Steel Sample Images with Masks](outputs/figures/steel_sample_images_masks.png)
 
 **Key insight:** Combined BCE + Dice loss enables stable training on severely imbalanced data (~3% defect pixels).
 
