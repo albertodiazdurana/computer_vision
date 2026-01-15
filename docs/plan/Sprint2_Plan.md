@@ -44,11 +44,11 @@
 - Real manufacturing data from steel production
 
 ### Tasks:
-- [ ] Download Severstal Steel Defect dataset (Kaggle)
-- [ ] Create `notebooks/03_steel_defect_segmentation.ipynb`
-- [ ] Implement U-Net architecture for multi-class segmentation
-- [ ] Evaluate with IoU and Dice metrics
-- [ ] Visualize predictions vs ground truth masks
+- [x] Download Severstal Steel Defect dataset (Kaggle)
+- [x] Create `notebooks/03_steel_defect_segmentation.ipynb`
+- [x] Implement U-Net architecture for multi-class segmentation
+- [x] Evaluate with IoU and Dice metrics
+- [x] Visualize predictions vs ground truth masks
 
 ---
 
